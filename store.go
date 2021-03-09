@@ -14,7 +14,7 @@ import (
 
 type StateStore interface {
 	Begin(i interface{}, state interface{}) error
-	Get(i interface{}) *DsStoredState
+	Get(i interface{}) StoredState
 	Has(i interface{}) (bool, error)
 	List(out interface{}) error
 }
@@ -58,7 +58,7 @@ func (st *DsStateStore) Begin(i interface{}, state interface{}) error {
 	return st.ds.Put(k, b)
 }
 
-func (st *DsStateStore) Get(i interface{}) *DsStoredState {
+func (st *DsStateStore) Get(i interface{}) StoredState {
 	return &DsStoredState{
 		ds:   st.ds,
 		name: ToKey(i),
